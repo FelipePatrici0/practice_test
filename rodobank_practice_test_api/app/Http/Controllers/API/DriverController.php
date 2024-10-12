@@ -40,11 +40,18 @@ class DriverController extends Controller
                 'name_driver_tbd'      => 'required|string|max:100',
                 'cpf_driver_tbd'       => 'required|string|size:11|unique:tb_driver',
                 'birthdate_driver_tbd' => 'required|date',
-                'email_driver_tbd'     => 'string|email',
+                'email_driver_tbd'     => 'sometimes|string|email',
             ]);
 
             if (!$this->isValidCPF($request['cpf_driver_tbd'])) {
                 return response()->json(['error' => 'Invalid CPF please check and try again.'], 422);
+            }
+
+            $birthdate = \Carbon\Carbon::parse($request['birthdate_driver_tbd']);
+            $age = $birthdate->diffInYears(now());
+
+            if ($age < 18) {
+                return response()->json(['error' => 'Driver must be at least 18 years old.'], 422);
             }
 
             $driver = $this->driverRepository->create($data);
@@ -57,25 +64,34 @@ class DriverController extends Controller
     }
 
 
+
     public function update(Request $request, $id)
     {
         try {
             $driver = $this->driverRepository->find($id);
 
             if (!$driver) {
-                return response()->json(['error' => 'Carrier not found.'], 404);
+                return response()->json(['error' => 'Driver not found.'], 404);
             }
 
             $data = $request->validate([
                 'name_driver_tbd'      => 'sometimes|string|max:100',
-                'cpf_driver_tbd'       => 'sometimes|string|size:11|unique:tb_driver', // Ignora o CPF atual
+                'cpf_driver_tbd'       => 'sometimes|string|size:11|unique:tb_driver',
                 'birthdate_driver_tbd' => 'sometimes|date',
-                'email_driver_tbd'     => 'sometimes|string|email', // Adiciona sometimes para email
+                'email_driver_tbd'     => 'sometimes|string|email',
             ]);
 
-            // Verifica se o CPF foi enviado e, se sim, valida
             if (isset($data['cpf_driver_tbd']) && !$this->isValidCPF($data['cpf_driver_tbd'])) {
                 return response()->json(['error' => 'Invalid CPF please check and try again.'], 422);
+            }
+
+            if (isset($data['birthdate_driver_tbd'])) {
+                $birthdate = \Carbon\Carbon::parse($data['birthdate_driver_tbd']);
+                $age = $birthdate->diffInYears(now());
+
+                if ($age < 18) {
+                    return response()->json(['error' => 'Driver must be at least 18 years old.'], 422);
+                }
             }
 
             $driver = $this->driverRepository->update($id, $data);
@@ -86,6 +102,7 @@ class DriverController extends Controller
             ], 422);
         }
     }
+
 
 
     public function destroy($id)
