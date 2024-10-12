@@ -32,6 +32,20 @@ class CarrierRepository implements CarrierRepositoryInterface
         return null;
     }
 
+    public function updateActiveStatus($id, bool $is_active)
+    {
+        $carrier = $this->find($id);
+
+        if (!$carrier) {
+            return null; // Ou lançar uma exceção
+        }
+
+        $carrier->is_active_tbc = $is_active;
+        $carrier->save(); // Salva as mudanças
+
+        return $carrier; // Retorna o carrier atualizado
+    }
+
     public function delete($id)
     {
         $carrier = Carrier::find($id);
@@ -41,4 +55,5 @@ class CarrierRepository implements CarrierRepositoryInterface
         }
         return false;
     }
+    
 }

@@ -92,4 +92,46 @@ class CarrierController extends Controller
 
         return response()->json(['message' => 'Carrier deleted successfully']);
     }
+
+    public function activate($id = null)
+    {
+        if (is_null($id)) {
+            return response()->json(['error' => 'ID is required.'], 400);
+        }
+
+        $carrier = $this->carrierRepository->find($id);
+        if (!$carrier) {
+            return response()->json(['error' => 'Carrier not found.'], 404);
+        }
+
+        if ($carrier->is_active_tbc) {
+            return response()->json(['message' => 'Carrier is already active.'], 422);
+        }
+
+        $this->carrierRepository->updateActiveStatus($id, true);
+        return response()->json(['message' => 'Carrier activated successfully.']);
+    }
+
+
+    public function deactivate($id = null)
+    {
+        if (is_null($id)) {
+            return response()->json(['error' => 'ID is required.'], 400);
+        }
+
+        $carrier = $this->carrierRepository->find($id);
+        if (!$carrier) {
+            return response()->json(['error' => 'Carrier not found.'], 404);
+        }
+
+        if (!$carrier->is_active_tbc) {
+            return response()->json(['message' => 'Carrier is already inactive.'], 422);
+        }
+
+        $this->carrierRepository->updateActiveStatus($id, false);
+        return response()->json(['message' => 'Carrier deactivated successfully.']);
+    }
+
+
+
 }

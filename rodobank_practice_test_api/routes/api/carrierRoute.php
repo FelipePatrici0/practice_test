@@ -23,5 +23,7 @@ Route::controller(CarrierController::class)->group(function () {
     Route::get('/{id}', 'show');
     Route::post('/', 'store');
     Route::put('/{id}', 'update');
+    Route::patch('/activate/{id?}', 'activate');
+    Route::patch('/deactivate/{id?}', 'deactivate');
     Route::delete('/{id}', 'destroy');
 });
