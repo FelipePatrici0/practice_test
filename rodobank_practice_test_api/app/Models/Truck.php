@@ -19,6 +19,8 @@ class Truck extends Model
         'plate_truck_tbt',
     ];
 
+    public $timestamps = true;
+
     public function driver()
     {
         return $this->belongsTo(Driver::class, 'id_driver_tbt');
