@@ -7,7 +7,7 @@ trait ValidateDocuments
     private function isValidCNPJ($cnpj)
     {
         $cnpj = preg_replace('/\D/', '', $cnpj);
-        
+
         if (strlen($cnpj) != 14) {
             return false;
         }
@@ -16,9 +16,8 @@ trait ValidateDocuments
             return false;
         }
 
-        $calculatedCNPJ = substr($cnpj, 0, 12);
         $digits = substr($cnpj, 12, 2);
-        
+
         $sum = 0;
         for ($i = 0, $weight = 5; $i < 12; $i++, $weight--) {
             if ($weight < 2) {
@@ -46,29 +45,33 @@ trait ValidateDocuments
         return $digits === $firstDigit . $secondDigit;
     }
 
-
-    public function isValidCPF($cpf)
+    private function isValidCPF($cpf) 
     {
-        $cpf = preg_replace('/\D/', '', $cpf);
+        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
 
-        if (strlen($cpf) !== 11 || preg_match('/^(\d)\1{10}$/', $cpf)) {
+        if (strlen($cpf) != 11) {
             return false;
         }
 
-        $soma = 0;
-        for ($i = 0; $i < 9; $i++) {
-            $soma += (int)$cpf[$i] * ($i + 1);
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
+            return false;
         }
-        $resto = $soma % 11;
-        $digito1 = ($resto < 2) ? 0 : 11 - $resto;
 
-        $soma = 0;
-        for ($i = 0; $i < 10; $i++) {
-            $soma += (int)$cpf[$i] * $i;
+        for ($t = 9; $t < 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf[$c] != $d) {
+                return false;
+            }
         }
-        $resto = $soma % 11;
-        $digito2 = ($resto < 2) ? 0 : 11 - $resto;
 
-        return ($cpf[9] == $digito1 && $cpf[10] == $digito2);
+        return true;
     }
+
+
+
+
+
 }
