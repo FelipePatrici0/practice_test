@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(CarrierDriverController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('/driver-associated-carrier/{id}', 'getDriversAssociatedWithCarrier');
     Route::get('/{id}', 'show');
     Route::post('/', 'store');
     Route::put('/{id}', 'update');
