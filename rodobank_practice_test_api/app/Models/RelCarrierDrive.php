@@ -17,4 +17,6 @@ class RelCarrierDrive extends Model
         'id_carrier_rcd',
         'id_driver_rcd',
     ];
+
+    public $timestamps = true;
 }
