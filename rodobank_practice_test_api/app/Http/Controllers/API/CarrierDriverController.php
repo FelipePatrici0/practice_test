@@ -21,6 +21,12 @@ class CarrierDriverController extends Controller
         return response()->json($carrierDrivers);
     }
 
+    public function getDriversAssociatedWithCarrier($id)
+    {
+        $carrierDrivers = $this->carrierDriverRepository->getDriversAssociatedWithCarrier($id);
+        return response()->json($carrierDrivers);
+    }
+
     public function show($id)
     {
         $carrier_driver = $this->carrierDriverRepository->find($id);
