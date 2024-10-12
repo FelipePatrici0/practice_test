@@ -21,11 +21,26 @@ class TruckController extends Controller
         return response()->json($truckers);
     }
 
+    public function getTruckDriversData()
+    {
+        $truckers = $this->truckRepository->getTruckDriversData();
+        return response()->json($truckers);
+    }
+
     public function show($id)
     {
         $truck = $this->truckRepository->find($id);
         if (!$truck) {
             return response()->json(['error' => 'Truck not found'], 404);
+        }
+        return response()->json($truck);
+    }
+
+    public function findTruckDriversData($id)
+    {
+        $truck = $this->truckRepository->findTruckDriversData($id);
+        if (!$truck) {
+            return response()->json(['error' => 'Driver not found'], 404);
         }
         return response()->json($truck);
     }
