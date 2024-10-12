@@ -40,6 +40,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api/carrier')
                 ->group(base_path('routes/api/carrierRoute.php'));
 
+            Route::middleware('api')
+                ->prefix('api/driver')
+                ->group(base_path('routes/api/driverRoute.php'));
+
         });
     }
 }
