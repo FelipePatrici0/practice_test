@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTbModelTruckTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -21,4 +21,5 @@ class CreateTbModelTruckTable extends Migration
         Schema::dropIfExists('tb_model_truck');
     }
 }
+?>
 
