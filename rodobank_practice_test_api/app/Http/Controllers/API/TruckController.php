@@ -27,6 +27,12 @@ class TruckController extends Controller
         return response()->json($truckers);
     }
 
+    public function getTruckAssociatedWithDriver($id)
+    {
+        $truckers = $this->truckRepository->getTruckAssociatedWithDriver($id);
+        return response()->json($truckers);
+    }
+
     public function show($id)
     {
         $truck = $this->truckRepository->find($id);

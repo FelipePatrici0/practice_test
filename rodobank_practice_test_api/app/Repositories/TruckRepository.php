@@ -54,6 +54,23 @@ class TruckRepository implements TruckRepositoryInterface
         return $data_truck_drivers;
     }
 
+    public function getTruckAssociatedWithDriver($id)
+    {
+        $data = Truck::select(
+            'tt.id_truck_tbt',
+            'tmt.model_truck_tmt',
+            'tmt.color_truck_tmt',
+            'tt.plate_truck_tbt',
+        )
+        ->from('tb_truck as tt')
+        ->join('tb_driver as td', 'tt.id_driver_tbt', '=', 'td.id_driver_tbd')
+        ->join('tb_model_truck as tmt', 'tt.id_model_truck_tbt', '=', 'tmt.id_model_truck_tmt')
+        ->where('td.id_driver_tbd', $id)
+        ->get();
+
+        return $data;
+    }
+
     public function create(array $data)
     {
         return Truck::create($data);

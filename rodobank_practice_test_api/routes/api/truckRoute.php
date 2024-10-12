@@ -22,6 +22,7 @@ Route::controller(TruckController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/data-truck-drivers', 'getTruckDriversData');
     Route::get('/data-truck-drivers/{id}', 'findTruckDriversData');
+    Route::get('/list-trucks-by-driver/{id}', 'getTruckAssociatedWithDriver');
     Route::get('/{id}', 'show');
     Route::post('/', 'store');
     Route::put('/{id}', 'update');
