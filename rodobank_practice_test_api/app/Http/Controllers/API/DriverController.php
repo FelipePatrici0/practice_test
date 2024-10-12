@@ -28,7 +28,7 @@ class DriverController extends Controller
     {
         $carrier = $this->driverRepository->find($id);
         if (!$carrier) {
-            return response()->json(['error' => 'Carrier not found'], 404);
+            return response()->json(['error' => 'Driver not found'], 404);
         }
         return response()->json($carrier);
     }
@@ -43,12 +43,10 @@ class DriverController extends Controller
                 'email_driver_tbd'     => 'string|email',
             ]);
 
-            // Valida o CPF
             if (!$this->isValidCPF($request['cpf_driver_tbd'])) {
                 return response()->json(['error' => 'Invalid CPF please check and try again.'], 422);
             }
 
-            // Cria o registro
             $driver = $this->driverRepository->create($data);
             return response()->json($driver, 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -62,9 +60,9 @@ class DriverController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $carrier = $this->driverRepository->find($id);
+            $driver = $this->driverRepository->find($id);
 
-            if (!$carrier) {
+            if (!$driver) {
                 return response()->json(['error' => 'Carrier not found.'], 404);
             }
 
@@ -80,8 +78,8 @@ class DriverController extends Controller
                 return response()->json(['error' => 'Invalid CPF please check and try again.'], 422);
             }
 
-            $carrier = $this->driverRepository->update($id, $data);
-            return response()->json($carrier);
+            $driver = $this->driverRepository->update($id, $data);
+            return response()->json($driver);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'errors' => $e->validator->errors(),
@@ -94,9 +92,9 @@ class DriverController extends Controller
     {
         $deleted = $this->driverRepository->delete($id);
         if (!$deleted) {
-            return response()->json(['error' => 'Carrier not found'], 404);
+            return response()->json(['error' => 'Driver not found'], 404);
         }
 
-        return response()->json(['message' => 'Carrier deleted successfully']);
+        return response()->json(['message' => 'Driver deleted successfully']);
     }
 }
