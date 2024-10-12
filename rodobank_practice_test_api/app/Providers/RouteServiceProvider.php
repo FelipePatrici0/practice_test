@@ -36,23 +36,23 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('api')
+            Route::middleware('auth:api')
                 ->prefix('api/carrier')
                 ->group(base_path('routes/api/carrierRoute.php'));
 
-            Route::middleware('api')
+            Route::middleware('auth:api')
                 ->prefix('api/driver')
                 ->group(base_path('routes/api/driverRoute.php'));
 
-            Route::middleware('api')
+            Route::middleware('auth:api')
                 ->prefix('api/model-truck')
                 ->group(base_path('routes/api/modelTruckRoute.php'));
 
-            Route::middleware('api')
+            Route::middleware('auth:api')
                 ->prefix('api/truck')
                 ->group(base_path('routes/api/truckRoute.php'));
 
-            Route::middleware('api')
+            Route::middleware('auth:api')
                 ->prefix('api/carrier-driver')
                 ->group(base_path('routes/api/carrierDriverRoute.php'));
 
