@@ -22,6 +22,25 @@ class CarrierDriverRepository implements CarrierDriverRepositoryInterface
         return CarrierDriver::create($data);
     }
 
+    public function driverAlreadyRegistered($id_carrier, $id_driver)
+    {
+        return CarrierDriver::where([
+            ['id_carrier_rcd', '=', $id_carrier],
+            ['id_driver_rcd', '=', $id_driver],
+        ])->exists();
+    }
+
+    public function driverAlreadyRegisteredUpdate($id_carrier, $id_driver, $currentId = null)
+    {
+        return CarrierDriver::where('id_carrier_rcd', $id_carrier)
+            ->where('id_driver_rcd', $id_driver)
+            ->when($currentId, function ($query) use ($currentId) {
+                return $query->where('id_carrier_driver_rcd', '!=', $currentId);
+            })
+            ->exists();
+    }
+
+
     public function update($id, array $data)
     {
         $carrier_driver = CarrierDriver::find($id);
