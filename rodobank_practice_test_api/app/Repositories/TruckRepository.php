@@ -15,16 +15,20 @@ class TruckRepository implements TruckRepositoryInterface
     public function getTruckDriversData()
     {
         $data_truck_drivers = Truck::select(
+            'tt.id_truck_tbt',
             'td.name_driver_tbd',
             'td.cpf_driver_tbd',
             'td.birthdate_driver_tbd',
             'td.email_driver_tbd',
             'tmt.model_truck_tmt',
             'tmt.color_truck_tmt',
-            'tb_truck.plate_truck_tbt'
+            'tt.plate_truck_tbt',
+            'tt.created_at',
+            'tt.updated_at'
         )
-        ->join('tb_driver as td', 'tb_truck.id_driver_tbt', '=', 'td.id_driver_tbd')
-        ->join('tb_model_truck as tmt', 'tb_truck.id_model_truck_tbt', '=', 'tmt.id_model_truck_tmt')
+        ->from('tb_truck as tt')
+        ->join('tb_driver as td', 'tt.id_driver_tbt', '=', 'td.id_driver_tbd')
+        ->join('tb_model_truck as tmt', 'tt.id_model_truck_tbt', '=', 'tmt.id_model_truck_tmt')
         ->get();
 
         return $data_truck_drivers;

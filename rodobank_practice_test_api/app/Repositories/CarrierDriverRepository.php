@@ -15,15 +15,10 @@ class CarrierDriverRepository implements CarrierDriverRepositoryInterface
     public function getDriversAssociatedWithCarrier($id_carrier)
     {
         return CarrierDriver::select(
-                'rcd.id_carrier_driver_rcd',
-                'tc.name_carrier_tbc',
-                'tc.cnpj_carrier_tbc',
                 'td.name_driver_tbd',
                 'td.cpf_driver_tbd',
                 'td.birthdate_driver_tbd',
                 'td.email_driver_tbd',
-                'rcd.created_at',
-                'rcd.updated_at'
             )
             ->from('rel_carrier_driver as rcd')
             ->join('tb_carrier as tc', 'rcd.id_carrier_rcd', '=', 'tc.id_carrier_tbc')

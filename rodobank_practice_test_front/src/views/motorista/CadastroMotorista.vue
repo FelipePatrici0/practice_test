@@ -68,7 +68,7 @@
   
   <script setup>
   import { ref } from 'vue';
-  import { useRouter } from 'vue-router'; // Importa o router para fazer o redirecionamento
+  import { useRouter } from 'vue-router';
   import api from '@/axios';
   import Swal from 'sweetalert2';
   
