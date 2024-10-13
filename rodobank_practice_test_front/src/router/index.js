@@ -12,6 +12,8 @@ import ListagemCaminhao from '@/views/caminhao/ListagemCaminhao.vue';
 import ListagemCaminhoesPorMotorista from '@/views/motorista/ListagemCaminhoesPorMotorista.vue';
 import TransportadoraMotorista from '@/views/transportadora/TransportadoraMotorista.vue';
 import MotoristasPorTransportadora from '@/views/transportadora/MotoristasPorTransportadora.vue';
+import ListagemUsuario from '@/views/usuario/ListagemUsuario.vue';
+import CadastroUsuario from '@/views/usuario/CadastroUsuario.vue';
 
 const routes = [
   {
@@ -93,6 +95,18 @@ const routes = [
         path: 'motorista/caminhoes/:driverId',
         name: 'ListagemCaminhoesPorMotorista',
         component: ListagemCaminhoesPorMotorista,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'usuario/cadastro',
+        name: 'CadastroUsuario',
+        component: CadastroUsuario,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'usuario/listagem',
+        name: 'ListagemUsuario',
+        component: ListagemUsuario,
         meta: { requiresAuth: true },
       },
     ],

@@ -74,6 +74,19 @@
             </li>
           </ul>
         </li>
+
+        <!-- Usuários -->
+        <li class="mb-4">
+          <div @click="toggleSection('usuarios')" class="flex justify-between items-center cursor-pointer p-2 hover:bg-gray-700 rounded">
+            <span>Usuários</span>
+            <span>{{ activeSection === 'usuarios' ? '▲' : '▼' }}</span>
+          </div>
+          <ul v-if="activeSection === 'usuarios'" class="pl-4">
+            <li>
+              <router-link to="/home/usuario/listagem" class="hover:bg-gray-700 p-2 rounded block">Listagem</router-link>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
 
