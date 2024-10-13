@@ -151,7 +151,6 @@
     return value;
   };
   
-  // Abrir o modal de edição
   const openEditModal = (carrier) => {
     editForm.value.id = carrier.id_carrier_tbc;
     editForm.value.nomeEmpresa = carrier.name_carrier_tbc;
@@ -161,12 +160,10 @@
     isModalOpen.value = true;
   };
   
-  // Fechar o modal
   const closeModal = () => {
     isModalOpen.value = false;
   };
   
-  // Função de ativar ou inativar transportadora
   const toggleCarrierStatus = async (carrier) => {
     const action = carrier.is_active_tbc ? 'inativar' : 'ativar';
     const route = carrier.is_active_tbc ? `carrier/deactivate/${carrier.id_carrier_tbc}` : `carrier/activate/${carrier.id_carrier_tbc}`;
@@ -181,7 +178,6 @@
   
     if (result.isConfirmed) {
       try {
-        // Faz a requisição PATCH para ativar ou inativar
         await api.patch(route);
         Swal.fire({
           icon: 'success',
@@ -189,7 +185,7 @@
           timer: 2000,
           showConfirmButton: false,
         });
-        fetchCarriers(); // Atualiza a listagem de transportadoras
+        fetchCarriers();
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -200,7 +196,6 @@
     }
   };
   
-  // Função para deletar transportadora
   const deleteCarrier = async (carrier) => {
     const result = await Swal.fire({
       title: 'Deseja realmente deletar a transportadora?',
@@ -213,7 +208,7 @@
   
     if (result.isConfirmed) {
       try {
-        await api.delete(`driver/${carrier.id_carrier_tbc}`); // Requisição para deletar a transportadora
+        await api.delete(`driver/${carrier.id_carrier_tbc}`);
         Swal.fire({
           icon: 'success',
           title: 'Deletada!',
@@ -221,7 +216,7 @@
           timer: 2000,
           showConfirmButton: false,
         });
-        fetchCarriers(); // Atualiza a listagem de transportadoras
+        fetchCarriers();
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -236,46 +231,41 @@
   </script>
   
   <style scoped>
-    /* Estilos gerais para a tabela */
     #transportadoraTable {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
-    color: #333; /* Cor do texto mais escura para melhor leitura */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
     }
 
-    /* Cabeçalhos da tabela */
     #transportadoraTable th {
-    background-color: #f7f7f7; /* Cor de fundo cinza claro */
-    color: #333; /* Texto cinza escuro para contraste */
-    padding: 10px 15px; /* Espaçamento interno maior */
-    border-bottom: 2px solid #e0e0e0; /* Linha de separação mais definida */
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 10px 15px;
+    border-bottom: 2px solid #e0e0e0;
     }
 
-    /* Células da tabela */
     #transportadoraTable td {
-    padding: 8px 10px; /* Espaçamento interno */
-    border-bottom: 1px solid #ccc; /* Bordas inferiores sutis */
-    text-align: center; /* Alinhamento central para todas as células */
+    padding: 8px 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
     }
 
-    /* Botões dentro da tabela */
     #transportadoraTable .text-blue-600 {
     border: none;
     color: white;
     padding: 5px 10px;
-    border-radius: 5px; /* Bordas arredondadas para os botões */
-    cursor: pointer; /* Cursor de ponteiro para indicar interatividade */
+    border-radius: 5px;
+    cursor: pointer;
     }
 
     #transportadoraTable .text-blue-600:hover {
-    background-color: #0056b3; /* Mudança de cor ao passar o mouse */
+    background-color: #0056b3;
     }
 
-    /* Botões de ação */
     #transportadoraTable .text-red-600, .text-green-500 {
     padding: 3px 6px;
-    border-radius: 50%; /* Botões redondos para ações de status */
+    border-radius: 50%;
     color: white;
-    font-size: 12px; /* Tamanho de fonte menor para os ícones dentro dos botões */
+    font-size: 12px;
     width: 24px;
     height: 24px;
     display: flex;
@@ -284,4 +274,3 @@
     }
 
 </style>
-  

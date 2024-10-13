@@ -34,7 +34,6 @@
   const router = useRouter();
   let dataTable = null;
   
-  // Função para formatar CPF
   const formatCPF = (cpf) => {
     let value = String(cpf).replace(/\D/g, '');
     if (value.length > 11) value = value.slice(0, 11);
@@ -44,7 +43,6 @@
     return value;
   };
   
-  // Função para formatar datas
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -53,7 +51,6 @@
     return `${day}/${month}/${year}`;
   };
   
-  // Função para buscar motoristas associados à transportadora
   const fetchDrivers = async (carrierId) => {
     try {
       const response = await api.get(`carrier-driver/driver-associated-carrier/${carrierId}`);
@@ -80,7 +77,6 @@
     }
   };
   
-  // Observa a mudança no ID da transportadora e busca novamente
   watch(
     () => route.params.carrierId,
     (newCarrierId) => {

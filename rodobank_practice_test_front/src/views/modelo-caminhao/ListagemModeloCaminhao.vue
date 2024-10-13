@@ -35,7 +35,6 @@
         </tbody>
       </table>
   
-      <!-- Modal de Edição -->
       <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
           <h2 class="text-2xl mb-4">Editar Modelo de Caminhão</h2>
@@ -75,10 +74,9 @@
     try {
       const response = await api.get('model-truck');
       models.value = response.data;
-      // Initialize or reinitialize DataTable
       $(document).ready(function () {
         $('#modelTruckTable').DataTable({
-          destroy: true, // Destroy the previous instance of DataTable
+          destroy: true,
           language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json',
           }
@@ -111,7 +109,7 @@
             });
 
             closeModal();
-            fetchModels(); // Refresh the list after update
+            fetchModels();
         } catch (error) {
             Swal.fire({
             icon: 'error',
@@ -141,7 +139,7 @@
           timer: 2000,
           showConfirmButton: false,
         });
-        fetchModels(); // Refresh the list after deletion
+        fetchModels();
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -172,41 +170,38 @@
 
 <style scoped>
     #modelTruckTable {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
-    color: #333; /* Cor do texto mais escura para melhor leitura */
-    width: 100%; /* Ajusta a largura da tabela para ocupar todo o espaço disponível */
-    overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    width: 100%;
+    overflow-x: auto; 
     }
 
-    /* Cabeçalhos da tabela */
     #modelTruckTable th {
-    background-color: #f7f7f7; /* Cor de fundo cinza claro */
-    color: #333; /* Texto cinza escuro para contraste */
-    padding: 12px 15px; /* Aumenta o espaçamento interno */
-    white-space: nowrap; /* Evita que o texto quebre em múltiplas linhas */
-    border-bottom: 2px solid #e0e0e0; /* Linha de separação mais definida */
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 12px 15px;
+    white-space: nowrap;
+    border-bottom: 2px solid #e0e0e0;
     }
 
-    /* Células da tabela */
     #modelTruckTable td {
-    padding: 10px 15px; /* Aumenta o espaçamento interno */
-    border-bottom: 1px solid #ccc; /* Bordas inferiores sutis */
-    text-align: center; /* Alinhamento central para todas as células */
-    white-space: nowrap; /* Evita que o texto quebre em múltiplas linhas */
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    white-space: nowrap;
     }
 
-    /* Botões dentro da tabela */
     #modelTruckTable .text-blue-600, .text-red-600 {
     border: none;
     background: none;
-    color: inherit; /* Mantém a cor padrão do texto para melhor integração */
+    color: inherit;
     padding: 5px 10px;
-    border-radius: 5px; /* Bordas arredondadas para os botões */
-    cursor: pointer; /* Cursor de ponteiro para indicar interatividade */
+    border-radius: 5px;
+    cursor: pointer;
     }
 
     #modelTruckTable .text-blue-600:hover, .text-red-600:hover {
-    background-color: #e2e2e2; /* Mudança de cor ao passar o mouse para um cinza muito leve */
+    background-color: #e2e2e2;
     }
 </style>
 

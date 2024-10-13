@@ -2,7 +2,6 @@
   <div class="p-6">
     <h1 class="text-2xl font-bold mb-6">Cadastro de Transportadora</h1>
     <form @submit.prevent="handleSubmit" class="space-y-4">
-      <!-- Campo Nome da Empresa -->
       <div>
         <label for="nomeEmpresa" class="block mb-2 text-sm font-medium text-gray-700">Nome da Empresa</label>
         <input
@@ -15,7 +14,6 @@
         />
       </div>
 
-      <!-- Campo CNPJ da Empresa -->
       <div>
         <label for="cnpjEmpresa" class="block mb-2 text-sm font-medium text-gray-700">CNPJ da Empresa</label>
         <input
@@ -29,7 +27,6 @@
         />
       </div>
 
-      <!-- Botão de enviar -->
       <div class="flex justify-between">
         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
           Cadastrar
@@ -44,13 +41,13 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router'; // Importa o router para fazer o redirecionamento
+import { useRouter } from 'vue-router';
 import api from '@/axios';
 import Swal from 'sweetalert2';
 
 const nomeEmpresa = ref('');
 const cnpjEmpresa = ref('');
-const router = useRouter(); // Configura o router
+const router = useRouter();
 
 const formatCNPJ = (event) => {
   let value = event.target.value.replace(/\D/g, '');
@@ -79,7 +76,6 @@ const handleSubmit = async () => {
     nomeEmpresa.value = '';
     cnpjEmpresa.value = '';
 
-    // Redireciona para a tela de listagem de transportadoras
     setTimeout(() => {
       router.push('/home/transportadora/listagem');
     }, 1600);
@@ -95,5 +91,4 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
-/* Estilos adicionais, se necessário */
 </style>

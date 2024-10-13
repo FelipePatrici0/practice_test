@@ -2,7 +2,6 @@
     <div class="p-6">
       <h1 class="text-2xl font-bold mb-6">Cadastro de Modelo de Caminhão</h1>
       <form @submit.prevent="handleSubmit" class="space-y-4">
-        <!-- Campo Modelo do Caminhão -->
         <div>
           <label for="modeloCaminhao" class="block mb-2 text-sm font-medium text-gray-700">Modelo do Caminhão</label>
           <input
@@ -15,7 +14,6 @@
           />
         </div>
   
-        <!-- Campo Cor do Caminhão -->
         <div>
           <label for="corCaminhao" class="block mb-2 text-sm font-medium text-gray-700">Cor do Caminhão</label>
           <input
@@ -28,7 +26,6 @@
           />
         </div>
   
-        <!-- Botão de Enviar -->
         <div class="flex justify-between">
             <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
             Cadastrar
@@ -63,7 +60,6 @@
         timer: 1500
       });
   
-      // Reset form
       modeloCaminhao.value = '';
       corCaminhao.value = '';
   
@@ -78,6 +74,5 @@
   </script>
   
   <style scoped>
-  /* Estilos adicionais, se necessário */
   </style>
   

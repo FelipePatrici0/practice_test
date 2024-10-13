@@ -123,7 +123,6 @@
     return value;
   };
 
-  // Função para formatar datas
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -143,13 +142,11 @@
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   };
   
-  // Função que busca a lista de motoristas
   const fetchDrivers = async () => {
     try {
       const response = await api.get('driver');
       drivers.value = response.data;
   
-      // Verifica se o DataTables já foi inicializado, caso positivo, destrói-o antes de inicializar novamente
       if (dataTable) {
         dataTable.destroy();
       }
@@ -166,7 +163,6 @@
     }
   };
 
-  // Abrir o modal de edição
   const openEditModal = (driver) => {
     editForm.value.id = driver.id_driver_tbd;
     editForm.value.nomeMotorista = driver.name_driver_tbd;
@@ -176,12 +172,10 @@
     isModalOpen.value = true;
   };
   
-  // Fechar o modal
   const closeModal = () => {
     isModalOpen.value = false;
   };
   
-  // Função de atualização para enviar os dados atualizados para a API
     const handleUpdate = async () => {
         try {
             const updateData = {
@@ -190,7 +184,6 @@
             birthdate_driver_tbd: editForm.value.dataNascimento,
             };
 
-            // Inclui o email somente se não estiver vazio
             if (editForm.value.emailMotorista.trim() !== '') {
             updateData.email_driver_tbd = editForm.value.emailMotorista;
             }
@@ -205,7 +198,7 @@
             });
 
             closeModal();
-            fetchDrivers(); // Atualiza a listagem de motoristas
+            fetchDrivers();
         } catch (error) {
             Swal.fire({
             icon: 'error',
@@ -215,7 +208,6 @@
         }
     };
   
-  // Função para deletar motorista
   const deleteDriver = async (driver) => {
     const result = await Swal.fire({
       title: 'Deseja realmente deletar o motorista?',
@@ -235,7 +227,7 @@
           timer: 2000,
           showConfirmButton: false,
         });
-        fetchDrivers(); // Atualiza a listagem de motoristas
+        fetchDrivers();
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -251,39 +243,36 @@
   
   <style scoped>
 #driverTable {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
-    color: #333; /* Cor do texto mais escura para melhor leitura */
-    width: 100%; /* Ajusta a largura da tabela para ocupar todo o espaço disponível */
-    overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    width: 100%;
+    overflow-x: auto;
   }
 
-  /* Cabeçalhos da tabela */
   #driverTable th {
-    background-color: #f7f7f7; /* Cor de fundo cinza claro */
-    color: #333; /* Texto cinza escuro para contraste */
-    padding: 12px 15px; /* Aumenta o espaçamento interno */
-    white-space: nowrap; /* Evita que o texto quebre em múltiplas linhas */
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 12px 15px;
+    white-space: nowrap;
   }
 
-  /* Células da tabela */
   #driverTable td {
-    padding: 10px 15px; /* Aumenta o espaçamento interno */
-    border-bottom: 1px solid #ccc; /* Bordas inferiores sutis */
-    text-align: center; /* Alinhamento central para todas as células */
-    white-space: nowrap; /* Evita que o texto quebre em múltiplas linhas */
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    white-space: nowrap;
   }
 
-  /* Botões dentro da tabela */
   #driverTable .text-blue-600, .text-red-600 {
     border: none;
     background: none;
-    color: inherit; /* Mantém a cor padrão do texto para melhor integração */
+    color: inherit;
     padding: 5px 10px;
-    border-radius: 5px; /* Bordas arredondadas para os botões */
-    cursor: pointer; /* Cursor de ponteiro para indicar interatividade */
+    border-radius: 5px;
+    cursor: pointer;
   }
 
   #driverTable .text-blue-600:hover, .text-red-600:hover {
-    background-color: #e2e2e2; /* Mudança de cor ao passar o mouse para um cinza muito leve */
+    background-color: #e2e2e2;
   }  </style>
   

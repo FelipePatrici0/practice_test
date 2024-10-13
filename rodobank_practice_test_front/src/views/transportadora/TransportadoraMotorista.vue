@@ -2,10 +2,8 @@
     <div class="p-6">
       <h1 class="text-2xl font-bold mb-6">Associar Transportadora x Motorista</h1>
       
-      <!-- Formulário de associação -->
       <form @submit.prevent="submitData" class="space-y-4">
         
-        <!-- Select Transportadora -->
         <div>
           <label for="transportadora" class="block mb-2 text-sm font-medium text-gray-700">Transportadora:</label>
           <select
@@ -21,7 +19,6 @@
           </select>
         </div>
   
-        <!-- Select Motorista -->
         <div>
           <label for="motorista" class="block mb-2 text-sm font-medium text-gray-700">Motorista:</label>
           <select
@@ -37,7 +34,6 @@
           </select>
         </div>
   
-        <!-- Botão de enviar -->
         <div class="flex justify-end mt-4">
           <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
             Associar
@@ -57,7 +53,6 @@
   const carriers = ref([]);
   const drivers = ref([]);
   
-  // Buscar transportadoras e motoristas ao carregar a página
   onMounted(async () => {
     try {
       const [carrierResponse, driverResponse] = await Promise.all([
@@ -71,7 +66,6 @@
     }
   });
   
-  // Enviar dados para a rota de associação
   const submitData = async () => {
     if (selectedCarrier.value && selectedDriver.value) {
       try {
@@ -87,7 +81,6 @@
           timer: 1500
         });
   
-        // Limpar os selects
         selectedCarrier.value = null;
         selectedDriver.value = null;
       } catch (error) {
@@ -107,7 +100,6 @@
   </script>
   
   <style scoped>
-  /* Estilos para os selects */
   select {
     appearance: none;
     background-color: white;

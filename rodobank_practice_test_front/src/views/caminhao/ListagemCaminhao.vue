@@ -124,7 +124,7 @@
     selectedDriver.value = truck.id_driver_tbt;
     selectedModelTruck.value = truck.id_model_truck_tbt;
     plateTruck.value = truck.plate_truck_tbt;
-    originalPlate.value = truck.plate_truck_tbt; // Armazena a placa original
+    originalPlate.value = truck.plate_truck_tbt;
   
     [drivers.value, models.value] = await Promise.all([
       api.get('driver').then(response => response.data.map(driver => ({ id: driver.id_driver_tbd, name: driver.name_driver_tbd, cpf: driver.cpf_driver_tbd }))),
@@ -223,7 +223,6 @@
   </script>
   
   <style scoped>
-  /* Estilos gerais */
   #truckTable {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;

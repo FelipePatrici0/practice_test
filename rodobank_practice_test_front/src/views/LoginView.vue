@@ -37,7 +37,7 @@
   </template>
   
   <script>
-  import api from '@/axios'; // Importa a instância Axios configurada
+  import api from '@/axios';
   import Swal from 'sweetalert2';
   import { useRouter } from 'vue-router';
   
@@ -51,19 +51,15 @@
     methods: {
       async handleSubmit() {
         try {
-          // Envia a requisição de login para a API usando a instância `api`
           const response = await api.post('user', {
             email: this.email,
             password: this.password,
           });
   
-          // Supondo que a resposta contenha um token JWT
           const token = response.data.token;
   
-          // Armazena o token no localStorage ou sessionStorage
           localStorage.setItem('authToken', token);
   
-          // Alerta de sucesso usando SweetAlert2
           Swal.fire({
             icon: 'success',
             title: 'Login realizado com sucesso!',
@@ -71,13 +67,11 @@
             timer: 1500,
           });
   
-          // Redireciona o usuário para a página principal após o login
           setTimeout(() => {
             this.$router.push('/home');
           }, 1600);
   
         } catch (error) {
-          // Alerta de erro usando SweetAlert2
           Swal.fire({
             icon: 'error',
             title: 'Erro no login',
@@ -90,6 +84,5 @@
   </script>
   
   <style scoped>
-  /* Seus estilos aqui */
   </style>
   

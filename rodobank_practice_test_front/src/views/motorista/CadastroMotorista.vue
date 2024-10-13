@@ -2,7 +2,6 @@
     <div class="p-6">
       <h1 class="text-2xl font-bold mb-6">Cadastro de Motorista</h1>
       <form @submit.prevent="handleSubmit" class="space-y-4">
-        <!-- Campo Nome do Motorista -->
         <div>
           <label for="nomeMotorista" class="block mb-2 text-sm font-medium text-gray-700">Nome do Motorista</label>
           <input
@@ -15,7 +14,6 @@
           />
         </div>
   
-        <!-- Campo CPF do Motorista -->
         <div>
           <label for="cpfMotorista" class="block mb-2 text-sm font-medium text-gray-700">CPF do Motorista</label>
           <input
@@ -29,7 +27,6 @@
           />
         </div>
   
-        <!-- Campo Data de Nascimento -->
         <div>
           <label for="dataNascimento" class="block mb-2 text-sm font-medium text-gray-700">Data de Nascimento</label>
           <input
@@ -41,7 +38,6 @@
           />
         </div>
   
-        <!-- Campo Email do Motorista -->
         <div>
           <label for="emailMotorista" class="block mb-2 text-sm font-medium text-gray-700">Email do Motorista</label>
           <input
@@ -53,7 +49,6 @@
           />
         </div>
   
-        <!-- Botões -->
         <div class="flex justify-between">
           <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
             Cadastrar
@@ -76,7 +71,7 @@
   const cpfMotorista = ref('');
   const dataNascimento = ref('');
   const emailMotorista = ref('');
-  const router = useRouter(); // Configura o router
+  const router = useRouter();
   
   const formatCPF = (event) => {
     let value = event.target.value.replace(/\D/g, '');
@@ -95,7 +90,6 @@
         birthdate_driver_tbd: dataNascimento.value,
         };
 
-        // Adiciona o email somente se não estiver vazio
         if (emailMotorista.value) {
         postData.email_driver_tbd = emailMotorista.value;
         }
@@ -109,13 +103,11 @@
         timer: 1500,
         });
 
-        // Limpa os campos após o cadastro
         nomeMotorista.value = '';
         cpfMotorista.value = '';
         dataNascimento.value = '';
         emailMotorista.value = '';
 
-        // Redireciona para a tela de listagem de motoristas
         setTimeout(() => {
         router.push('/home/motorista/listagem');
         }, 1600);
@@ -133,6 +125,5 @@
   </script>
   
   <style scoped>
-  /* Estilos adicionais, se necessário */
   </style>
   
