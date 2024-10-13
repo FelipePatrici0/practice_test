@@ -8,6 +8,7 @@
       <table id="transportadoraTable" class="min-w-full bg-white border border-gray-300">
         <thead>
           <tr>
+            <th class="py-2 px-4 border-b text-center">Cód Transportadora</th>
             <th class="py-2 px-4 border-b text-center">Nome da Transportadora</th>
             <th class="py-2 px-4 border-b text-center">CNPJ</th>
             <th class="py-2 px-4 border-b text-center">Data de Cadastro</th>
@@ -17,6 +18,7 @@
         </thead>
         <tbody>
           <tr v-for="carrier in carriers" :key="carrier.id_carrier_tbc">
+            <td class="py-2 px-4 border-b text-center">{{ carrier.id_carrier_tbc }}</td>
             <td class="py-2 px-4 border-b text-center">{{ carrier.name_carrier_tbc }}</td>
             <td class="py-2 px-4 border-b text-center">{{ formatTableCNPJ(carrier.cnpj_carrier_tbc) }}</td>
             <td class="py-2 px-4 border-b text-center">{{ formatDate(carrier.created_at) }}</td>
@@ -234,6 +236,52 @@
   </script>
   
   <style scoped>
-  /* Estilos adicionais, se necessário */
-  </style>
+    /* Estilos gerais para a tabela */
+    #transportadoraTable {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+    color: #333; /* Cor do texto mais escura para melhor leitura */
+    }
+
+    /* Cabeçalhos da tabela */
+    #transportadoraTable th {
+    background-color: #f7f7f7; /* Cor de fundo cinza claro */
+    color: #333; /* Texto cinza escuro para contraste */
+    padding: 10px 15px; /* Espaçamento interno maior */
+    border-bottom: 2px solid #e0e0e0; /* Linha de separação mais definida */
+    }
+
+    /* Células da tabela */
+    #transportadoraTable td {
+    padding: 8px 10px; /* Espaçamento interno */
+    border-bottom: 1px solid #ccc; /* Bordas inferiores sutis */
+    text-align: center; /* Alinhamento central para todas as células */
+    }
+
+    /* Botões dentro da tabela */
+    #transportadoraTable .text-blue-600 {
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px; /* Bordas arredondadas para os botões */
+    cursor: pointer; /* Cursor de ponteiro para indicar interatividade */
+    }
+
+    #transportadoraTable .text-blue-600:hover {
+    background-color: #0056b3; /* Mudança de cor ao passar o mouse */
+    }
+
+    /* Botões de ação */
+    #transportadoraTable .text-red-600, .text-green-500 {
+    padding: 3px 6px;
+    border-radius: 50%; /* Botões redondos para ações de status */
+    color: white;
+    font-size: 12px; /* Tamanho de fonte menor para os ícones dentro dos botões */
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+</style>
   
