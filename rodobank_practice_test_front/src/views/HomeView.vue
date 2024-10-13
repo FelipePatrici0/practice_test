@@ -1,9 +1,14 @@
+<template>
+  <div class="p-6">
+    <h1 class="text-2xl font-bold mb-6">Bem-vindo à Home</h1>
+    <p>Este é o conteúdo da Home Page.</p>
+  </div>
+</template>
+
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+/* Lógica adicional aqui, se necessário */
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
+<style scoped>
+/* Estilos específicos para a HomeView */
+</style>
