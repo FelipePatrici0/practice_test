@@ -1,66 +1,273 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Configuração Teste Prático Desenvolvedor FullStack
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Configurações iniciais
 
-## About Laravel
+1. Acessar o repositório do backend
+`cd rodobank_practice_test_api`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+2. Instalar dependencias 
+`composer install`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3. Duplicar o arquivo `.env.example` e renomear para `.env`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+4. Iniciar o docker
+`docker compose up`.
 
-## Learning Laravel
+5. É necessário executar os comandos dentro do docker
+ - Conectar no docker via bash
+ `docker exec -it rodobank_practice_test_api.test-1 bash`
+ - Criar as tabelas no banco de dados
+  `php artisan migrate`
+ - Criar as seeds no banco de dados
+  `php artisan db:seed --class=ModelTruckSeeder`
+ - Criar a chave JWT
+ `php artisan jwt:secret`
+ - Iniciar o server Laravel
+  `php artisan serve`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#
+# Estrutura de Rotas
+As rotas estão organizadas na pasta routes/api e gerenciadas pelo RouteServiceProvider. Cada arquivo de rota está relacionado a uma funcionalidade específica do sistema:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- `authRoute.php`: Contém as rotas de autenticação, como registro, login, e logout.
+- `carrierRoute.php`: Rotas para  transportadora.
+- `driverRoute.php`: Rotas para motorista.
+- `modelTruckRoute.php`: Rotas para modelo de caminhãp.
+- `truckRoute.php`: Rotas para caminhãp.
+- `carrierDriverRoute.php`: Rotas para a relação entre transportadora e motorista.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+As rotas são registradas automaticamente pelo RouteServiceProvider.
 
-## Laravel Sponsors
+#
+# Controllers
+## AuthController
+* Responsável pelos métodos de `login` e `logout` dos usuários.
+* Executa validações de credenciais e lógica de autenticação, como emissão e verificação de tokens JWT.
+* Delegado ao repository as operações de login e logout.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## CarrierController
+* Responsável pelos métodos de `crud` da Transportadora.
+* Realiza validações como verificação de duplicidade de CNPJ e regras de negócio específicas antes de delegar as operações ao repository.
 
-### Premium Partners
+## CarrierDriverController
+* Responsável pelos métodos de `crud` da Relação entre Transportadora e Motorista.
+* Valida se transportadora e motorista são válidos antes de criar ou atualizar a relação, e delega essas operações ao repository.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## DriverController
+* Responsável pelos métodos de `crud` dos Motoristas.
+* Realiza validações como verificação de duplicidade de CPF, além de aplicar lógicas de negócio específicas antes de delegar as operações ao repository.
 
-## Contributing
+## ModelTruckController
+* Responsável pelos métodos de `crud` dos Modelos de Caminhão.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## TruckController
+* Responsável pelos métodos de `crud` dos Caminhões.
+Realiza validações como verificação de duplicidade associação, além de aplicar lógicas de negócio específicas antes de delegar as operações ao repository.
 
-## Code of Conduct
+# Repositories
+## CarrierRepository
+* Responsável pelos métodos de `crud` da Transportadora.
+* Realiza consultas à model `Transportadora` e fornece métodos para criar, ler, atualizar e excluir registros de transportadoras.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## CarrierDriverRepository
+* Responsável pelos métodos de `crud` da Relação entre Transportadora e Motorista.
+* Executa operações de CRUD nas relações entre transportadoras e motoristas e manipula as associações entre eles.
 
-## Security Vulnerabilities
+## DriverRepository
+* Responsável pelos métodos de `crud` dos Motoristas.
+* Acessa a model `Motorista` para criar, ler, atualizar e excluir registros de motoristas.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## ModelTruckRepository
+* Responsável pelos métodos de `crud` dos Modelos de Caminhão.
+* Realiza operações de CRUD na model `Modelo de Caminhão`, garantindo o acesso e manipulação centralizada dos dados.
 
-## License
+## TruckRepository
+* Responsável pelos métodos de `crud` dos Caminhões.
+* Gerencia as operações de CRUD na model `Caminhão`, encapsulando a lógica de acesso aos dados.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Tables
+* Segue um link para verificar como está a UML do banco:
+[Veja a UML do banco](https://dbdiagram.io/d/rodobank_db-6706cfa597a66db9a371ecae)
+
+# Rotas relacionadas ao teste
+
+# Carrier (Transportadora)
+- GET /api/carrier → CarrierController@index
+
+- POST /api/carrier → CarrierController@store
+
+```
+{
+	"name_carrier_tbc":"Nome da Transportadora",
+	"cnpj_carrier_tbc":"CNPJ da Transportadora"
+}
+
+```
+
+- GET /api/carrier/{id} → CarrierController@show
+
+- PUT /api/carrier/{id} → CarrierController@update
+
+```
+{
+	"name_carrier_tbc":"Nome da Transportadora",
+	"cnpj_carrier_tbc":"CNPJ da Transportadora"
+}
+
+```
+
+- DELETE /api/carrier/{id} → CarrierController@destroy
+
+- PATCH /api/carrier/activate/{id?} → CarrierController@activate
+
+- PATCH /api/carrier/deactivate/{id?} → CarrierController@deactivate
+
+# Carrier-Driver (Relação entre Transportadora e Motorista)
+- GET /api/carrier-driver → CarrierDriverController@index
+
+- POST /api/carrier-driver → CarrierDriverController@store
+
+```
+{
+	"id_carrier_rcd": 1,
+	"id_driver_rcd": 5
+}
+
+```
+
+- GET /api/carrier-driver/{id} → CarrierDriverController@show
+
+- PUT /api/carrier-driver/{id} → CarrierDriverController@update
+
+```
+{
+	"id_carrier_rcd": 1,
+	"id_driver_rcd": 5
+}
+
+```
+
+- DELETE /api/carrier-driver/{id} → CarrierDriverController@destroy
+
+- GET /api/carrier-driver/driver-associated-carrier/{id} → CarrierDriverController@getDriverAssociatedCarrier
+
+# Driver (Motorista)
+
+- GET /api/driver → DriverController@index
+
+- POST /api/driver → DriverController@store
+
+```
+{
+	"name_driver_tbd":"Nome do motorista",
+	"cpf_driver_tbd": "CPF do motorista",
+	"birthdate_driver_tbd":"Data de nascimento do motorista(AAAA-MM-DD)",
+	"email_driver_tbd": "email do motorista(não obrigatório)"
+}
+```
+
+- GET /api/driver/{id} → DriverController@show
+
+- PUT /api/driver/{id} → DriverController@update
+
+```
+{
+	"name_driver_tbd":"Nome do motorista",
+	"cpf_driver_tbd": "CPF do motorista",
+	"birthdate_driver_tbd":"Data de nascimento do motorista(AAAA-MM-DD)",
+	"email_driver_tbd": "email do motorista(não obrigatório)"
+}
+```
+
+- DELETE /api/driver/{id} → DriverController@destroy
+
+# ModelTruck (Modelos de Caminhão)
+
+- GET /api/model-truck → ModelTruckController@index
+
+- POST /api/model-truck → ModelTruckController@store
+
+```
+{
+	"model_truck_tmt":"Modelo do Caminhão",
+	"color_truck_tmt":"Cor do Caminhão"
+}
+```
+
+- GET /api/model-truck/{id} → ModelTruckController@show
+
+- PUT /api/model-truck/{id} → ModelTruckController@update
+
+```
+{
+	"model_truck_tmt":"Modelo do Caminhão",
+	"color_truck_tmt":"Cor do Caminhão"
+}
+```
+
+- DELETE /api/model-truck/{id} → ModelTruckController@destroy
+
+# Truck (Caminhão)
+
+- GET /api/truck → TruckController@index
+
+- POST /api/truck → TruckController@store
+
+```
+{
+	"id_driver_tbt": "id do motorista", 
+	"id_model_truck_tbt": "id do modelo de caminhão",
+	"plate_truck_tbt":"Placa do caminhão"
+}
+```
+
+- GET /api/truck/{id} → TruckController@show
+
+- PUT /api/truck/{id} → TruckController@update
+
+```
+{
+	"id_driver_tbt": "id do motorista", 
+	"id_model_truck_tbt": "id do modelo de caminhão",
+	"plate_truck_tbt":"Placa do caminhão"
+}
+```
+
+- DELETE /api/truck/{id} → TruckController@destroy
+
+- GET /api/truck/data-truck-drivers → TruckController@getTruckDriversData
+
+- GET /api/truck/data-truck-drivers/{id} → TruckController@findTruckDriverData
+
+- GET /api/truck/list-trucks-by-driver/{id} → TruckController@getTrucksByDriver
+
+# Auth (Autenticação e Usuários)
+
+- POST /api/user/login → AuthController@login
+
+```
+{
+	"email":"Email do usuário cadastrado",
+	"password":"Senha do usuário cadastrado"
+}
+```
+
+- POST /api/user/register → AuthController@register
+
+```
+{
+	"name":"Nome do usuário",
+	"email":"email do usuário",
+	"password":"senha do usuário"
+}
+```
+
+- POST /api/user/logout → AuthController@logout
+
+- GET /api/user/list → AuthController@index
+
+# Biblioteca de rotas Insomnia
+* Segue um link para baixar as requisições e respostas que utilizei no insomnia(basta importar o arquivo no seu aplicativo de consumo de api):
+[Veja o arquivo](https://drive.google.com/file/d/13Ksi9Bp1rkz9qqC5GYEwvd9WDVsOdlwK/view?usp=sharing)
+
+# Teste feito utilizando Laravel 11, Docker e Mysql
