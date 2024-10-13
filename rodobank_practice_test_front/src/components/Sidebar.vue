@@ -16,9 +16,6 @@
           </div>
           <ul v-if="activeSection === 'transportadora'" class="pl-4">
             <li class="mb-2">
-              <router-link to="/home/transportadora/cadastro" class="hover:bg-gray-700 p-2 rounded block">Cadastro</router-link>
-            </li>
-            <li class="mb-2">
               <router-link to="/home/transportadora/listagem" class="hover:bg-gray-700 p-2 rounded block">Listagem</router-link>
             </li>
             <li class="mb-2">
@@ -42,9 +39,6 @@
           </div>
           <ul v-if="activeSection === 'motorista'" class="pl-4">
             <li class="mb-2">
-              <router-link to="/home/motorista/cadastro" class="hover:bg-gray-700 p-2 rounded block">Cadastro</router-link>
-            </li>
-            <li class="mb-2">
               <router-link to="/home/motorista/listagem" class="hover:bg-gray-700 p-2 rounded block">Listagem</router-link>
             </li>
             <li class="mb-2">
@@ -62,9 +56,6 @@
             <span>{{ activeSection === 'modeloCaminhoes' ? '▲' : '▼' }}</span>
           </div>
           <ul v-if="activeSection === 'modeloCaminhoes'" class="pl-4">
-            <li class="mb-2">
-              <router-link to="/home/modelo-caminhao/cadastro" class="hover:bg-gray-700 p-2 rounded block">Cadastro</router-link>
-            </li>
             <li>
               <router-link to="/home/modelo-caminhao/listagem" class="hover:bg-gray-700 p-2 rounded block">Listagem</router-link>
             </li>
@@ -78,9 +69,6 @@
             <span>{{ activeSection === 'caminhoes' ? '▲' : '▼' }}</span>
           </div>
           <ul v-if="activeSection === 'caminhoes'" class="pl-4">
-            <li class="mb-2">
-              <router-link to="/home/caminhao/cadastro" class="hover:bg-gray-700 p-2 rounded block">Cadastro</router-link>
-            </li>
             <li>
               <router-link to="/home/caminhao/listagem" class="hover:bg-gray-700 p-2 rounded block">Listagem</router-link>
             </li>

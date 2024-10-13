@@ -13,8 +13,6 @@ import ListagemCaminhoesPorMotorista from '@/views/motorista/ListagemCaminhoesPo
 import TransportadoraMotorista from '@/views/transportadora/TransportadoraMotorista.vue';
 import MotoristasPorTransportadora from '@/views/transportadora/MotoristasPorTransportadora.vue';
 
-
-
 const routes = [
   {
     path: '/',
@@ -23,69 +21,80 @@ const routes = [
   },
   {
     path: '/home',
-    component: () => import('@/layouts/MainLayout.vue'), // Layout com Sidebar e Navbar
+    component: () => import('@/layouts/MainLayout.vue'),
     children: [
       {
         path: '',
         name: 'home',
         component: HomeView,
+        meta: { requiresAuth: true },
       },
       {
         path: 'transportadora/cadastro',
         name: 'CadastroTransportadora',
         component: CadastroTransportadora,
+        meta: { requiresAuth: true },
       },
       {
         path: 'transportadora/listagem',
         name: 'ListagemTransportadora',
-        component: ListagemTransportadora, // Rota para a listagem
+        component: ListagemTransportadora,
+        meta: { requiresAuth: true },
       },
       {
-        path: '/home/transportadora/motorista',
+        path: 'transportadora/motorista',
         name: 'TransportadoraMotorista',
-        component: TransportadoraMotorista
+        component: TransportadoraMotorista,
+        meta: { requiresAuth: true },
       },
       {
-        path: '/home/transportadora/motoristas/:carrierId',
+        path: 'transportadora/motoristas/:carrierId',
         name: 'MotoristasPorTransportadora',
         component: MotoristasPorTransportadora,
+        meta: { requiresAuth: true },
       },
       {
         path: 'motorista/cadastro',
         name: 'CadastroMotorista',
         component: CadastroMotorista,
+        meta: { requiresAuth: true },
       },
       {
         path: 'motorista/listagem',
         name: 'ListagemMotorista',
-        component: ListagemMotorista, // Rota para a listagem
+        component: ListagemMotorista,
+        meta: { requiresAuth: true },
       },
       {
         path: 'modelo-caminhao/cadastro',
         name: 'CadastroModeloCaminhao',
         component: CadastroModeloCaminhao,
+        meta: { requiresAuth: true },
       },
       {
         path: 'modelo-caminhao/listagem',
         name: 'ListagemModeloCaminhao',
-        component: ListagemModeloCaminhao, // Rota para a listagem
+        component: ListagemModeloCaminhao,
+        meta: { requiresAuth: true },
       },
       {
         path: 'caminhao/cadastro',
         name: 'CadastroCaminhao',
         component: CadastroCaminhao,
+        meta: { requiresAuth: true },
       },
       {
         path: 'caminhao/listagem',
         name: 'ListagemCaminhao',
         component: ListagemCaminhao,
+        meta: { requiresAuth: true },
       },
       {
-        path: '/home/motorista/caminhoes/:driverId',
+        path: 'motorista/caminhoes/:driverId',
         name: 'ListagemCaminhoesPorMotorista',
         component: ListagemCaminhoesPorMotorista,
-      }
-      
+        meta: { requiresAuth: true },
+      },
     ],
   },
 ];
@@ -93,6 +102,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('authToken');
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated) {
+      next({ name: 'login' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

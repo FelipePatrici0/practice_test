@@ -11,6 +11,12 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+
     public function register(Request $request)
     {
         $request->validate([
@@ -51,13 +57,19 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         try {
-            $token = JWTAuth::parseToken()->invalidate();
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'Could not log out, token invalid.'], 500);
-        }
+            $token = JWTAuth::parseToken();
+            $token->invalidate();
 
-        return response()->json(['message' => 'Successfully logged out']);
+            return response()->json(['message' => 'Successfully logged out']);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return response()->json(['error' => 'Token is already invalid or expired.'], 400);
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return response()->json(['error' => 'Could not log out, token invalid.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong.'], 500);
+        }
     }
+
 
     public function me()
     {
