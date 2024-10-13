@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
 import CadastroTransportadora from '@/views/transportadora/CadastroTransportadora.vue';
+import CadastroMotorista from '@/views/transportadora/CadastroMotorista.vue';
 import ListagemTransportadora from '@/views/transportadora/ListagemTransportadora.vue'; // Importa a nova view de listagem
+import ListagemMotorista from '@/views/transportadora/ListagemMotorista.vue'; // Importa a nova view de listagem
 
 const routes = [
   {
@@ -28,6 +30,16 @@ const routes = [
         path: 'transportadora/listagem',
         name: 'ListagemTransportadora',
         component: ListagemTransportadora, // Rota para a listagem
+      },
+      {
+        path: 'motorista/cadastro',
+        name: 'CadastroMotorista',
+        component: CadastroMotorista,
+      },
+      {
+        path: 'motorista/listagem',
+        name: 'ListagemMotorista',
+        component: ListagemMotorista, // Rota para a listagem
       },
     ],
   },

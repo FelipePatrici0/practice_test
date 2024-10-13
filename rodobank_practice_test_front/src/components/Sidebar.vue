@@ -33,10 +33,10 @@
             </div>
             <ul v-if="activeSection === 'motorista'" class="pl-4">
               <li class="mb-2">
-                <router-link to="/motorista/cadastro" class="hover:bg-gray-700 p-2 rounded block">Cadastro</router-link>
+                <router-link to="/home/motorista/cadastro" class="hover:bg-gray-700 p-2 rounded block">Cadastro</router-link>
               </li>
               <li>
-                <router-link to="/motorista/listagem" class="hover:bg-gray-700 p-2 rounded block">Listagem</router-link>
+                <router-link to="/home/motorista/listagem" class="hover:bg-gray-700 p-2 rounded block">Listagem</router-link>
               </li>
             </ul>
           </li>
