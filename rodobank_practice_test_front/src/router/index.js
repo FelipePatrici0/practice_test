@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
 import CadastroTransportadora from '@/views/transportadora/CadastroTransportadora.vue';
-import CadastroMotorista from '@/views/transportadora/CadastroMotorista.vue';
-import ListagemTransportadora from '@/views/transportadora/ListagemTransportadora.vue'; // Importa a nova view de listagem
-import ListagemMotorista from '@/views/transportadora/ListagemMotorista.vue'; // Importa a nova view de listagem
+import CadastroMotorista from '@/views/motorista/CadastroMotorista.vue';
+import CadastroModeloCaminhao from '@/views/modelo-caminhao/CadastroModeloCaminhao.vue';
+import ListagemTransportadora from '@/views/transportadora/ListagemTransportadora.vue';
+import ListagemMotorista from '@/views/motorista/ListagemMotorista.vue';
+import ListagemModeloCaminhao from '@/views/modelo-caminhao/ListagemModeloCaminhao.vue';
 
 const routes = [
   {
@@ -40,6 +42,16 @@ const routes = [
         path: 'motorista/listagem',
         name: 'ListagemMotorista',
         component: ListagemMotorista, // Rota para a listagem
+      },
+      {
+        path: 'modelo-caminhao/cadastro',
+        name: 'CadastroModeloCaminhao',
+        component: CadastroModeloCaminhao,
+      },
+      {
+        path: 'modelo-caminhao/listagem',
+        name: 'ListagemModeloCaminhao',
+        component: ListagemModeloCaminhao, // Rota para a listagem
       },
     ],
   },
