@@ -32,8 +32,8 @@ As rotas estão organizadas na pasta routes/api e gerenciadas pelo RouteServiceP
 - `authRoute.php`: Contém as rotas de autenticação, como registro, login, e logout.
 - `carrierRoute.php`: Rotas para  transportadora.
 - `driverRoute.php`: Rotas para motorista.
-- `modelTruckRoute.php`: Rotas para modelo de caminhãp.
-- `truckRoute.php`: Rotas para caminhãp.
+- `modelTruckRoute.php`: Rotas para modelo de caminhão.
+- `truckRoute.php`: Rotas para caminhão.
 - `carrierDriverRoute.php`: Rotas para a relação entre transportadora e motorista.
 
 As rotas são registradas automaticamente pelo RouteServiceProvider.
