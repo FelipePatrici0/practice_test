@@ -1,0 +1,54 @@
+services:
+  # vue:
+  # build: ./transportadora-vue
+  # ports:
+  #   - "8080:8080"
+
+  laravelapi:
+    image: laravelapi0.5
+    build: ./transportadora-crud
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./transportadora-crud/.env
+    depends_on:
+      - mysql
+    networks:
+      - laravel_network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: laravel_database
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: laravel_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_container
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "8050:80"
+    depends_on:
+      - mysql
+    networks:
+      - laravel_network
+
+volumes:
+  mysql_data:
+
+networks:
+  laravel_network:
+    driver: bridge
