@@ -1,6 +1,6 @@
 # rodobank_practice_teste_front
 
-Este template deve ajudar você a começar a desenvolver com Vue 3 no Vite.
+Este template consome as rotas criadas pelo backend.
 
 ## Configuração do Projeto
 
