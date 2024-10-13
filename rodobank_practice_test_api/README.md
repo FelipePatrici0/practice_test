@@ -129,8 +129,8 @@ Realiza validações como verificação de duplicidade associação, além de ap
 
 ```
 {
-	"id_carrier_rcd": 1,
-	"id_driver_rcd": 5
+	"id_carrier_rcd": Id da transportadora,
+	"id_driver_rcd": Id do motorista
 }
 
 ```
@@ -141,8 +141,8 @@ Realiza validações como verificação de duplicidade associação, além de ap
 
 ```
 {
-	"id_carrier_rcd": 1,
-	"id_driver_rcd": 5
+	"id_carrier_rcd": Id da transportadora,
+	"id_driver_rcd": Id do motorista
 }
 
 ```
